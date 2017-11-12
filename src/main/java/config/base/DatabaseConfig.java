@@ -26,24 +26,24 @@ public class DatabaseConfig {
         dataSource.setPassword("admin");
         return dataSource;
     }
-
-    @Bean(name = "sessionFactory")
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dataSource());
-        sessionFactoryBean.setPackagesToScan("app.entity");
-
-        Properties hibernateProperties = new Properties();
-
-        hibernateProperties.put("hibernate.hbm2ddl.auto", "create-drop");
-        hibernateProperties.put("hibernate.show_sql", "true");
-        hibernateProperties.put("hibernate.format_sql", "true");
-        hibernateProperties.put("hibernate.use_sql_comments", "true");
-        hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
-        sessionFactoryBean.setHibernateProperties(hibernateProperties);
-
-        return sessionFactoryBean;
-    }
+//
+//    @Bean(name = "sessionFactory")
+//    public LocalSessionFactoryBean sessionFactory() {
+//        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+//        sessionFactoryBean.setDataSource(dataSource());
+//        sessionFactoryBean.setPackagesToScan("app.entity");
+//
+//        Properties hibernateProperties = new Properties();
+//
+//        hibernateProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+//        hibernateProperties.put("hibernate.show_sql", "true");
+//        hibernateProperties.put("hibernate.format_sql", "true");
+//        hibernateProperties.put("hibernate.use_sql_comments", "true");
+//        hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
+//        sessionFactoryBean.setHibernateProperties(hibernateProperties);
+//
+//        return sessionFactoryBean;
+//    }
 
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DriverManagerDataSource dataSource) {

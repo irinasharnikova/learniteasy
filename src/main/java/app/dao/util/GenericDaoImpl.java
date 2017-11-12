@@ -2,12 +2,15 @@ package app.dao.util;
 
 import lombok.Data;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
+import app.entity.Word;
 
 /**
  * @author Irina Sharnikova
@@ -15,44 +18,47 @@ import java.util.List;
  */
 @Repository
 @Data
-public class GenericDaoImpl< PK extends Serializable, T> implements GenericDao<PK, T> {
+public abstract class GenericDaoImpl< PK extends Serializable, T> implements GenericDao<PK, T> {
 
     private Class<T> type;
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public GenericDaoImpl( Class<T> type ) {
         this.type = type;
     }
 
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
     @Override
     public void create( T t ) {
-        getSession().save( t );
+
     }
 
     @Override
     public void update( T t ) {
-        getSession().update( t );
+
     }
 
     @Override
     public void delete( PK id ) {
-        T element = getSession().load( type, id );
-        getSession().delete( element );
+
     }
 
     @Override
     public T get( PK id ) {
-        return getSession().get( type, id );
+        return null;
     }
 
-    @Override
-    public List<T> getAll() {
-        return getSession().createQuery( "from " + type.getName(), type ).list();
-    }
+//    @Override
+//    public List<T> getAll() {
+//        return entityManager.createQuery("select w from Word w where w.name = 1", Word.class ).getResultList();
+//    }
 
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
+//    private Session getSession() {
+//        return sessionFactory.getCurrentSession();
+//    }
 }

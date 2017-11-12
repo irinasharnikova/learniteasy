@@ -36,4 +36,10 @@ public class WordController {
     public List<Word> getWords()  {
         return wordService.getWords();
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/words/first", method = RequestMethod.GET, produces = "application/json")
+    public String getNameWords()  {
+        return wordService.getWords().get(0).getWord();
+    }
 }
